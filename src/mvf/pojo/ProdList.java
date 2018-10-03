@@ -2,8 +2,6 @@ package mvf.pojo;
 
 import java.util.ArrayList;
 
-public class OrderDetail {
-	private int orderDetailId;
+public class ProdList {
 	private ArrayList<Product> prodList;
-	private double totalCost;
 }
