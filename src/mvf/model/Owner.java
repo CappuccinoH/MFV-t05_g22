@@ -1,4 +1,4 @@
-package mvf.pojo;
+package mvf.model;
 
 public class Owner extends User {
 
