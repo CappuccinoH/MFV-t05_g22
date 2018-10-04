@@ -1,0 +1,3 @@
+amdin,admin,owner
+abc,123,customer
+aaa,111,customer
