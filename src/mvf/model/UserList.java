@@ -2,6 +2,7 @@ package mvf.model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UserList {
 	private ArrayList<User> userList;
@@ -37,11 +38,26 @@ public class UserList {
 
 	}
 
+	public User login() {
+		Scanner console = new Scanner(System.in);
+		System.out.println("Please enter your account");
+		String account = console.nextLine();
+		System.out.println("Please enter your password");
+		String password = console.nextLine();
+		for (User user : userList) {
+			if (user.getAccount().equals(account) && user.getPassword().equals(password)) {
+				return user;
+			}
+		}
+		System.out.println("login failed");
+		return null;
+	}
+
 	public void registerCustomer() {
 
 	}
 
-	public void login(String[] userInfo) {
+	public void removeCustomer() {
 
 	}
 
@@ -101,7 +117,7 @@ public class UserList {
 						double amount = pr.getAmount();
 						sb.append(prodId + ":" + String.valueOf(amount));
 						if (prodRepositroy.indexOf(pr) != prodRepositroy.size() - 1) {
-							sb.append("\\|");
+							sb.append("|");
 						}
 					}
 					double price = customer.getShoppingCart().getPrice();
@@ -111,7 +127,7 @@ public class UserList {
 						int orderId = order.getOrderId();
 						sb.append(String.valueOf(orderId));
 						if (orderList.indexOf(order) != orderList.size() - 1) {
-							sb.append("\\|");
+							sb.append("|");
 						}
 					}
 				}

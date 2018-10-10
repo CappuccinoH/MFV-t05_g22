@@ -86,10 +86,19 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [prodId=" + prodId + ", prodName=" + prodName + ", shelfLife=" + shelfLife + ", prodQty="
-				+ prodQty + ", prodPrice=" + prodPrice + ", packingType=" + packingType + ", prodSource=" + prodSource
-				+ "]";
+//		return "Product [prodId=" + prodId + ", prodName=" + prodName + ", shelfLife=" + shelfLife + ", prodQty="
+//				+ prodQty + ", prodPrice=" + prodPrice + ", packingType=" + packingType + ", prodSource=" + prodSource
+//				+ "]";
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("\tProduct ID: " + prodId + "\r\n");
+		sb.append("\tProduct Name: " + prodName + "\r\n");
+		sb.append("\tProduct Shelf Life: " + shelfLife + "\r\n");
+		sb.append("\tProduct Quantity: " + prodQty + "\r\n");
+		sb.append("\tProduct Price: " + prodPrice + "\r\n");
+		sb.append("\tProduct Packing Type: " + packingType + "\r\n");
+		sb.append("\tProduct Source: " + prodSource);
+		return sb.toString();
 	}
 
-	
 }

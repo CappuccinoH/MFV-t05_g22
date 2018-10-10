@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class ProdList {
 	private ArrayList<Product> prodList;
@@ -34,7 +35,118 @@ public class ProdList {
 	}
 
 	public void addProdusct() {
+		Scanner console = new Scanner(System.in);
+		System.out.println("Please enter Product ID:");
+		// id
+		String prodId = console.nextLine();
+		while (!validateProdIdPK(prodId)) {
+			System.out.println("Please enter Product ID:");
+			prodId = console.nextLine();
+		}
+		// name
+		System.out.println("Please enter Product Name:");
+		String prodName = console.nextLine();
+		while (!validateProdName(prodName)) {
+			System.out.println("Please enter Product Name:");
+			prodName = console.nextLine();
+		}
+		// shelf life
+		System.out.println("Please enter Product Shelf Life: (format: xx (days))");
+		String strDays = console.nextLine();
+		while (!validateShelfLife(strDays)) {
+			strDays = console.nextLine();
+		}
+		int days = Integer.parseInt(strDays);
+		Date shelfLife = new Date(System.currentTimeMillis() + days * 1000 * 60 * 60 * 24);
+		// qty
+		System.out.println("Please enter Product Quantity:");
+		String strQty = console.nextLine();
+		while (!validateQTY(strQty)) {
+			System.out.println("Please enter Product Price:");
+			strQty = console.nextLine();
+		}
+		double prodQty = Double.parseDouble(strQty);
+		// price
+		System.out.println("Please enter Product Price:");
+		String strPrice = console.nextLine();
+		while (!validatePrice(strPrice)) {
+			System.out.println("Please enter Product Price:");
+			strPrice = console.nextLine();
+		}
+		double prodPrice = Double.parseDouble(strPrice);
+		// packing type
+		System.out.println("Please enter Product Packing Type:");
+		String packingType = console.nextLine();
+		while (!validatePackingType(packingType)) {
+			System.out.println("Please enter Product Packing Type:");
+			packingType = console.nextLine();
+		}
+		// source
+		System.out.println("Please enter Product Source:(local or overseas)");
+		String prodSource = console.nextLine();
+		while (!validateSource(prodSource)) {
+			System.out.println("Please enter Source:");
+			prodSource = console.nextLine();
+		}
+		prodList.add(new Product(prodId, prodName, shelfLife, prodQty, prodPrice, packingType, prodSource));
+	}
 
+	public void removeProduct() {
+		System.out.println("You want to remove product by No. or Product ID?");
+		System.out.println("1. By NO.");
+		System.out.println("2. By ID");
+		Scanner console = new Scanner(System.in);
+		String option = console.nextLine();
+		while (!option.equals("1") && !option.equals("2")) {
+			System.out.println("You can only choose 1 or 2");
+			option = console.nextLine();
+		}
+		if (option.equals("1")) {
+			System.out.println("Enter the No . of product which you want to remove:");
+			String choice = console.nextLine();
+			while (!choice.matches("[0-9]{1,}")) {
+				System.out.println("Please enter the number of product");
+				choice = console.nextLine();
+			}
+			prodList.remove(Integer.parseInt(choice) - 1);
+		} else if (option.equals("2")) {
+			System.out.println("Enter the Product Id which you want to remove:");
+			Product product = searchById(console.nextLine());
+			while (product == null) {
+				System.out.println("Re-enter the Product ID");
+				product = searchById(console.nextLine());
+			}
+			prodList.remove(product);
+		}
+	}
+
+	public void editProduct() {
+		System.out.println("You want to edit product by No. or Product ID?");
+		System.out.println("1. By NO.");
+		System.out.println("2. By ID");
+		Scanner console = new Scanner(System.in);
+		String option = console.nextLine();
+		while (!option.equals("1") && !option.equals("2")) {
+			System.out.println("You can only choose 1 or 2");
+			option = console.nextLine();
+		}
+		if (option.equals("1")) {
+			System.out.println("Enter the No . of product which you want to remove:");
+			String choice = console.nextLine();
+			while (!choice.matches("[0-9]{1,}")) {
+				System.out.println("Please enter the number of product");
+				choice = console.nextLine();
+			}
+			prodList.remove(Integer.parseInt(choice) - 1);
+		} else if (option.equals("2")) {
+			System.out.println("Enter the Product Id which you want to remove:");
+			Product product = searchById(console.nextLine());
+			while (product == null) {
+				System.out.println("Re-enter the Product ID");
+				product = searchById(console.nextLine());
+			}
+			prodList.remove(product);
+		}
 	}
 
 	public Product searchById(String prodId) {
@@ -49,6 +161,14 @@ public class ProdList {
 
 	public void searchByProdName(String prodName) {
 
+	}
+
+	public void viewAllProduct() {
+		for (Product product : prodList) {
+			System.out.println("Product " + (prodList.indexOf(product) + 1) + " : ");
+			System.out.println(product);
+			System.out.println();
+		}
 	}
 
 	public void load() {
@@ -100,5 +220,70 @@ public class ProdList {
 		} else {
 			System.out.println("Error, there is no Product to be saved");
 		}
+	}
+
+	public boolean validateProdIdPK(String prodId) {
+		if (prodId.length() != 4) {
+			System.out.println("Product ID should be 4 Characters");
+			return false;
+		}
+		for (Product product : prodList) {
+			if (product.getProdId().equals(prodId)) {
+				System.out.println("Product ID has been used");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean validateProdName(String prodName) {
+		if (prodName.length() > 20 || prodName.length() < 1) {
+			System.out.println("Product Name should be in 1-20 Characters");
+			return false;
+		}
+		return true;
+	}
+
+	public boolean validateShelfLife(String strDays) {
+		char[] charArray = strDays.toCharArray();
+		for (char c : charArray) {
+			if (!Character.isDigit(c)) {
+				System.out.println("Please follow the format:xx(days)");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean validateQTY(String strQty) {
+		if (strQty.matches("[0-9]{1,}.{0,1}[0-9]{0,}")) {
+			return true;
+		}
+		System.out.println("Product Quantity should be the double datatype");
+		return false;
+	}
+
+	public boolean validatePrice(String strPrice) {
+		if (strPrice.matches("[0-9]{1,}.{0,1}[0-9]{0,}")) {
+			return true;
+		}
+		System.out.println("Product Price should be the double datatype");
+		return false;
+	}
+
+	public boolean validatePackingType(String packingType) {
+		if (packingType.length() < 1 || packingType.length() > 20) {
+			System.out.println("Product Packing Type should be 1-20 characters");
+			return false;
+		}
+		return true;
+	}
+
+	public boolean validateSource(String source) {
+		if (source.equals("overseas") || source.equals("local")) {
+			return true;
+		}
+		System.out.println("source can only be OVERSEAS or LOCAL");
+		return false;
 	}
 }
