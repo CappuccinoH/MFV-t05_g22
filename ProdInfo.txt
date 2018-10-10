@@ -1,1 +1,2 @@
-test
+1x222,potato,03/10/2018 23:39:47,1.0,4.0,unit,local
+1x23,carrot,09/10/2018 23:39:47,1.0,1.3,package,local
