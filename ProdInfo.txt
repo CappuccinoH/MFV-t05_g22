@@ -1,1 +1,2 @@
-test
+1x23,carrot,09/10/2018 23:39:47,1.0,1.3,package,local
+1x11,tomato,10/21/2018 04:41:25,10.0,4.0,kg,local
