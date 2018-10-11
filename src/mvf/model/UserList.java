@@ -30,12 +30,23 @@ public class UserList {
 		return "UserList [userList=" + userList + "]";
 	}
 
-	public void searchByUserStatus() {
-
+	public ArrayList<User> searchByUserStatus(String status) {
+		ArrayList<User> arrUser = new ArrayList<User>();
+		for (User user : userList) {
+			if (user.getUserStatus().equals(status)) {
+				arrUser.add(user);
+			}
+		}
+		return arrUser;
 	}
 
-	public void searchByUserAccount() {
-
+	public User searchByUserAccount(String account) {
+		for (User user : userList) {
+			if (user.getAccount().equals(account)) {
+				return user;
+			}
+		}
+		return null;
 	}
 
 	public User login() {
@@ -54,11 +65,27 @@ public class UserList {
 	}
 
 	public void registerCustomer() {
-
+		Scanner console = new Scanner(System.in);
+		System.out.println("Please enter account:");
+		String account = console.nextLine();
+		System.out.println("Please enter password:");
+		String password = console.nextLine();
+		userList.add(new Customer(account, password));
 	}
 
-	public void removeCustomer() {
-
+	public void removeCustomerByOwner() {
+		ArrayList<User> arrUser = searchByUserStatus("customer");
+		for (User user : arrUser) {
+			System.out.println(user);
+		}
+		Scanner console = new Scanner(System.in);
+		System.out.println("Please enter the Customer's Account:");
+		String account = console.nextLine();
+		while (searchByUserAccount(account) == null || searchByUserAccount(account).getUserStatus().equals("owner")) {
+			System.out.println("Re-enter account:");
+			account = console.nextLine();
+		}
+		userList.remove(searchByUserAccount(account));
 	}
 
 	public void load() {
@@ -90,7 +117,7 @@ public class UserList {
 						orderList.load();
 						arrOrder.add(orderList.searchByOrderId(Integer.parseInt(Id)));
 					}
-					userList.add(new Customer(userArr[0], userArr[1], userArr[2]));
+					userList.add(new Customer(userArr[0], userArr[1]));
 				}
 			}
 		} else {

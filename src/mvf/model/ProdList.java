@@ -104,12 +104,14 @@ public class ProdList {
 		if (option.equals("1")) {
 			System.out.println("Enter the No . of product which you want to remove:");
 			String choice = console.nextLine();
-			while (!choice.matches("[0-9]{1,}")) {
+			while (!choice.matches("[0-9]{1,}")
+					|| !(Integer.parseInt(choice) <= prodList.size() && Integer.parseInt(choice) >= 1)) {
+				// need to be updated
 				System.out.println("Please enter the number of product");
 				choice = console.nextLine();
 			}
 			prodList.remove(Integer.parseInt(choice) - 1);
-		} else if (option.equals("2")) {
+		} else {
 			System.out.println("Enter the Product Id which you want to remove:");
 			Product product = searchById(console.nextLine());
 			while (product == null) {
@@ -130,23 +132,93 @@ public class ProdList {
 			System.out.println("You can only choose 1 or 2");
 			option = console.nextLine();
 		}
+		Product product = new Product();
 		if (option.equals("1")) {
-			System.out.println("Enter the No . of product which you want to remove:");
+			System.out.println("Enter the No . of product which you want to edit:");
 			String choice = console.nextLine();
-			while (!choice.matches("[0-9]{1,}")) {
+			while (!choice.matches("[0-9]{1,}")
+					|| !(Integer.parseInt(choice) <= prodList.size() && Integer.parseInt(choice) >= 1)) {
 				System.out.println("Please enter the number of product");
 				choice = console.nextLine();
 			}
-			prodList.remove(Integer.parseInt(choice) - 1);
-		} else if (option.equals("2")) {
-			System.out.println("Enter the Product Id which you want to remove:");
-			Product product = searchById(console.nextLine());
+			product = prodList.get(Integer.parseInt(choice) - 1);
+
+		} else {
+			System.out.println("Enter the Product Id which you want to edit:");
+			product = searchById(console.nextLine());
 			while (product == null) {
 				System.out.println("Re-enter the Product ID");
 				product = searchById(console.nextLine());
 			}
-			prodList.remove(product);
 		}
+		// enter new data
+		System.out.println("Product ID is :" + product.getProdId());
+		System.out.println("Please enter new Product ID:");
+		// id
+		String prodId = console.nextLine();
+		while (!validateProdIdPK(prodId)) {
+			System.out.println("Please enter Product ID:");
+			prodId = console.nextLine();
+		}
+		// name
+		System.out.println("Product Name is :" + product.getProdName());
+		System.out.println("Please enter Product Name:");
+		String prodName = console.nextLine();
+		while (!validateProdName(prodName)) {
+			System.out.println("Please enter Product Name:");
+			prodName = console.nextLine();
+		}
+		// shelf life
+		System.out.println("Product Shelf life is :" + product.getShelfLife());
+		System.out.println("Please enter Product Shelf Life: (format: xx (days))");
+		String strDays = console.nextLine();
+		while (!validateShelfLife(strDays)) {
+			strDays = console.nextLine();
+		}
+		int days = Integer.parseInt(strDays);
+		Date shelfLife = new Date(System.currentTimeMillis() + days * 1000 * 60 * 60 * 24);
+		// qty
+		System.out.println("Product Quantity is :" + product.getProdQty());
+		System.out.println("Please enter Product Quantity:");
+		String strQty = console.nextLine();
+		while (!validateQTY(strQty)) {
+			System.out.println("Please enter Product Price:");
+			strQty = console.nextLine();
+		}
+		double prodQty = Double.parseDouble(strQty);
+		// price
+		System.out.println("Product Price is :" + product.getProdPrice());
+		System.out.println("Please enter Product Price:");
+		String strPrice = console.nextLine();
+		while (!validatePrice(strPrice)) {
+			System.out.println("Please enter Product Price:");
+			strPrice = console.nextLine();
+		}
+		double prodPrice = Double.parseDouble(strPrice);
+		// packing type
+		System.out.println("Product Packing Type is :" + product.getPackingType());
+		System.out.println("Please enter Product Packing Type:");
+		String packingType = console.nextLine();
+		while (!validatePackingType(packingType)) {
+			System.out.println("Please enter Product Packing Type:");
+			packingType = console.nextLine();
+		}
+		// source
+		System.out.println("Product Source is :" + product.getProdSource());
+		System.out.println("Please enter Product Source:(local or overseas)");
+		String prodSource = console.nextLine();
+		while (!validateSource(prodSource)) {
+			System.out.println("Please enter Source:");
+			prodSource = console.nextLine();
+		}
+		// update info
+		product.setProdId(prodId);
+		product.setProdName(prodName);
+		product.setShelfLife(shelfLife);
+		product.setProdQty(prodQty);
+		product.setProdPrice(prodPrice);
+		product.setPackingType(packingType);
+		product.setProdSource(prodSource);
 	}
 
 	public Product searchById(String prodId) {

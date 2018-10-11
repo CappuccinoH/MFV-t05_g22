@@ -117,6 +117,22 @@ public class Controller {
 
 		// view
 		controller.getView().welcome();
+		controller.getView().loginView();
+		Scanner console = new Scanner(System.in);
+		String choice = console.nextLine();
+		while (true) {
+			if (choice.equals("1")) {
+				break;
+			}
+			if (choice.equals("2")) {
+				controller.getUserList().registerCustomer();
+				System.out.println("register successful");
+				break;
+			}
+			controller.getView().loginView();
+			choice = console.nextLine();
+		}
+		System.out.println("Start login");
 		User user = controller.getUserList().login();
 		while (user == null) {
 			user = controller.getUserList().login();
@@ -124,7 +140,6 @@ public class Controller {
 		controller.getView().loginView(user.getAccount());
 		if (user.getUserStatus().equals("owner")) {
 			controller.getView().menuForOwner();
-			Scanner console = new Scanner(System.in);
 			String option = console.nextLine();
 			while (true) {
 				switch (option) {
@@ -135,6 +150,7 @@ public class Controller {
 					controller.getProdList().viewAllProduct();
 					break;
 				case "3":
+					controller.getProdList().editProduct();
 					break;
 				case "4":
 					controller.getProdList().removeProduct();
@@ -159,7 +175,6 @@ public class Controller {
 			}
 		} else if (user.getUserStatus().equals("customer")) {
 			controller.getView().menuForCustomer();
-			Scanner console = new Scanner(System.in);
 			String option = console.nextLine();
 			while (true) {
 				switch (option) {

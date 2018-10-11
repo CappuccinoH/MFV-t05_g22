@@ -63,4 +63,9 @@ public class View {
 	public void displayInformation(String information) {
 
 	}
+
+	public void loginView() {
+		System.out.println("\t1. Already have an Account, login now");
+		System.out.println("\t2. No Account, register as a customer");
+	}
 }

@@ -1,2 +1,2 @@
-test,test,customer,1,1x23:2.0|1x222:23.0,500.0,21
+test,test,customer,1,1x23:2.0|1x11:23.0,500.0,21
 admin,admin,owner

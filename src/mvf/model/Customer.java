@@ -12,8 +12,8 @@ public class Customer extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(String account, String password, String userStatus) {
-		super(account, password, userStatus);
+	public Customer(String account, String password) {
+		super(account, password, "customer");
 		// TODO Auto-generated constructor stub
 	}
 
