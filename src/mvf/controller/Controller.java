@@ -156,10 +156,7 @@ public class Controller {
 					controller.getProdList().removeProduct();
 					break;
 				case "5":
-
-					break;
-				case "6":
-
+					controller.getUserList().removeCustomerByOwner();
 					break;
 				case "x":
 					controller.getView().logoutView(user.getAccount());
@@ -179,24 +176,18 @@ public class Controller {
 			while (true) {
 				switch (option) {
 				case "1":
-
-					break;
-				case "2":
-
-					break;
-				case "3":
 					controller.getProdList().viewAllProduct();
 					break;
-				case "4":
-
+				case "2":
+					Customer customer = (Customer) user;
+					customer.pay();
 					break;
-				case "5":
-
-					break;
-				case "6":
-
+				case "3":
+					controller.getUserList().removeCustomerByCustomer(user);
 					break;
 				case "x":
+					controller.getView().logoutView(user.getAccount());
+					controller.getProdList().save();
 					System.exit(0);
 					break;
 				default:

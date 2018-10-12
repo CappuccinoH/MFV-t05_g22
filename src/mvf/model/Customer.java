@@ -1,6 +1,7 @@
 package mvf.model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Customer extends User {
 
@@ -48,10 +49,6 @@ public class Customer extends User {
 		return "Customer [shoppingCart=" + shoppingCart + ", orderList=" + orderList + "]";
 	}
 
-	public void unregister() {
-
-	}
-
 	public void addToCart() {
 
 	}
@@ -60,15 +57,15 @@ public class Customer extends User {
 
 	}
 
-	public void viewProdList() {
-
-	}
-
 	public void generateOrder() {
-
+		Scanner console = new Scanner(System.in);
+		int orderId = console.nextInt();
+		String custAccount = console.nextLine();
+		new Order(orderId, custAccount, paymentDetail, orderDetail);
 	}
 
 	public void pay() {
-
+		double price = this.getShoppingCart().getPrice();
+		this.generateOrder();
 	}
 }

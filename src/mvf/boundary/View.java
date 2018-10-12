@@ -51,11 +51,9 @@ public class View {
 		System.out.println();
 		System.out.println("Menu for Customer:");
 		System.out.println();
-		System.out.println("1. Add Product");
-		System.out.println("2. View Product");
-		System.out.println("3. Edit Product");
-		System.out.println("4. Remove Product");
-		System.out.println("5. Remove Customer");
+		System.out.println("1. View Product");
+		System.out.println("2. Purchase Product");
+		System.out.println("3. Unregister self");
 		System.out.println("x. Logout");
 		System.out.println();
 	}

@@ -88,6 +88,10 @@ public class UserList {
 		userList.remove(searchByUserAccount(account));
 	}
 
+	public void removeCustomerByCustomer(User user) {
+		userList.remove(user);
+	}
+
 	public void load() {
 		FileIO fileIO = new FileIO("UserInfo.txt");
 		if (new File(fileIO.getFilePath()).exists()) {
